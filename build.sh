@@ -1,24 +1,5 @@
 #/bin/bash
 
-# очистить все докеры без тегов или имен
-while [ 1 ]
-do
-    none_tags=$(docker images | grep none | awk '{print $3}')
-    if [ ${#none_tags} -gt 0 ]
-    then
-        docker rmi ${none_tags} --force
-    else
-        break
-    fi
-done
-
-# очистить то, что уже завершено
-exited=$(docker ps -qa --no-trunc --filter "status=exited")
-if [ ${#exited} -gt 0 ]
-then
-    docker rm ${exited}
-fi
-
 NODE_VERSION_FILE="node.latest"
 NODE_LATEST_VERSION=$(curl -s -X GET https://nodejs.org/dist/latest/ | grep linux-x64.tar.gz | sed 's/<\/*[^>]*>//g' | awk '{print $1}' | awk -F "-" '{print $2}')
 
@@ -49,5 +30,4 @@ fi
 NODE_VERSION=$(cat ${NODE_VERSION_FILE})
 
 # Собрать родительский контейнер с JupyterLab
-#DOCKER_BUILDKIT=1 
-docker build -t mixaill76/jupyter-lab --build-arg NODE_VER=${NODE_LATEST_VERSION} .
+DOCKER_BUILDKIT=1 docker build -t mixaill76/jupyter-lab --build-arg NODE_VER=${NODE_LATEST_VERSION} .
