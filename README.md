@@ -14,6 +14,10 @@ docker run -it -p 8888:8888 --name=jupyter_test mixaill76/jupyter-lab
 > DOCKER_BUILDKIT=1  
 ```
 ./clean.sh && ./build.sh
+```  
+or  
+```
+DOCKER_BUILDKIT=1 docker build -t mixaill76/jupyter-lab .
 ```
 
 # The size

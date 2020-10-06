@@ -4,17 +4,12 @@ LABEL maintainer="mike.milos@yandex.ru"
 WORKDIR /tmp
 
 RUN apt update
-RUN apt install sudo python3 python3-pip git -y
+RUN apt install sudo python3 python3-pip git curl xz-utils -y
 
 # Устанавливаем NODEJS
-# https://github.com/nodejs/help/wiki/Installation
-RUN mkdir -p /usr/local/lib
-#/nodejs
-ADD node.tar.gz /usr/local/lib/nodejs/
-
-ARG NODE_VER
-ENV NODE_VER=${NODE_VER}
-ENV PATH=/usr/local/lib/nodejs/node-${NODE_VER}-linux-x64/bin:$PATH
+COPY install_latest_node.sh install_latest_node.sh
+RUN ./install_latest_node.sh
+ENV PATH=/usr/local/lib/nodejs/node-latest-linux-x64/bin:$PATH
 
 # Создаем пользователя
 ARG JUP_USER
@@ -50,5 +45,8 @@ COPY jupyter-lab-starter ${JUP_START}
 # Открытие порта для jupyter
 EXPOSE 8888
 
+# clear tmp
+RUN sudo rm -rf /tmp/*
+
 # Запуск jupyterlab
-ENTRYPOINT ${JUP_START}
+# ENTRYPOINT ${JUP_START}
