@@ -23,4 +23,4 @@ DOCKER_BUILDKIT=1 docker build -t mixaill76/jupyter-lab .
 # The size
 |REPOSITORY|TAG|SIZE|
 |----------|---|----|
-|mixaill76/jupyter-lab|latest|817MB|
+|mixaill76/jupyter-lab|latest|815MB|

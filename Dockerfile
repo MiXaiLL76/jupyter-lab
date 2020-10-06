@@ -4,7 +4,7 @@ LABEL maintainer="mike.milos@yandex.ru"
 WORKDIR /tmp
 
 RUN apt update
-RUN apt install sudo python3 python3-pip git curl xz-utils -y
+RUN apt install sudo python3 python3-pip git curl -y
 
 # Устанавливаем NODEJS
 COPY install_latest_node.sh install_latest_node.sh
@@ -49,4 +49,4 @@ EXPOSE 8888
 RUN sudo rm -rf /tmp/*
 
 # Запуск jupyterlab
-# ENTRYPOINT ${JUP_START}
+ENTRYPOINT ${JUP_START}
