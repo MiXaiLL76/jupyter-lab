@@ -26,7 +26,10 @@ RUN echo "${JUP_USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 
 # Устанавливаем jupyterlab
-RUN python3 -m pip install --no-cache-dir jupyterlab
+RUN python3 -m pip install --no-cache-dir jupyterlab 
+
+# Доп. либы
+RUN python3 -m pip install --no-cache-dir pandas numpy matplotlib
 
 # Переключаемся на пользователя
 USER ${JUP_USER}
